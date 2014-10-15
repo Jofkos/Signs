@@ -1,0 +1,49 @@
+name: Signs
+main: com.jofkos.signs.Signs
+version: 1.8
+author: Jofkos
+description: Simple sign editing.
+softdepend: [LWC, WorldGuard, Towny, QuickShop, Factions, PlotMe]
+
+commands:
+  signs:
+    description: Reloads the configuration file
+    usage: /signs
+    aliases: [signs reload]
+    permission: signs.reload
+
+permissions:
+  signs.use:
+    description: Allows the user to edit signs.
+    default: op
+  signs.copy:
+    description: Allows the user to copy and paste text from one sign to another
+    default: op
+  signs.signwall:
+    description: Allows the user to write on a sign wall.
+    default: op
+  signs.signcolors:
+    description: Allows the user to use colors.
+    default: op
+  signs.reload:
+    description: Allows the user to use the /signs command
+    default: op
+  signs.bypass.editcosts:
+    description: Even if EditCosts is turned on, it is free to edit signs
+    default: false
+  signs.bypass.copycosts:
+    description: Even if CopyCosts is turned on, it is free to copy text from signs
+    default: false
+  signs.bypass.pastecosts:
+    description: Even if PasteCosts is turned on, it is free to paste text on signs
+    default: false
+  signs.*:
+    description: Gives access to all Sign permissions
+    default: op
+    children:
+      signs.use: true
+      signs.signwall: true
+      signs.signcolors: true
+      signs.bypass.*: true
+      signs.reload: true
+      signs.copy: true
