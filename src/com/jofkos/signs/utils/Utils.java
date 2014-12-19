@@ -137,10 +137,13 @@ public class Utils {
 	
 //	---------------------------- Text ----------------------------	\\
 	
-	public static String[] colorCodes(String[] lines) {
+	public static String[] colorCodes(String... lines) {
 		String[] r = new String[lines.length];
 		for (int i = 0; i < lines.length; i++) {
-			r[i] = lines[i].replace("§", "&");
+			r[i] = lines[i].replaceAll(ChatColor.COLOR_CHAR + "([a-z0-9])", "&$1");
+			while (r[i].startsWith("&0") || r[i].startsWith("§0")) {
+				r[i] = r[i].substring(2);
+			}
 		}
 		return r;
 	}

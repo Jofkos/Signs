@@ -37,7 +37,6 @@ public class API {
 		if (p == null) return true;
 		if (!p.hasPermission("signs.use") && !p.isOp()) return false;
 		if (p.isOp() || p.hasPermission("signs.bypass.*")) return true;
-		
 		for (String a : plugins.keySet()) {
 			if (!canBuild(a, p, b)) {
 				return false;

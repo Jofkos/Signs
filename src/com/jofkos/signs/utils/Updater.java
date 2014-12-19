@@ -20,6 +20,7 @@ import org.json.simple.JSONValue;
 import com.google.common.io.Files;
 import com.jofkos.signs.Signs;
 import com.jofkos.signs.utils.i18n.I18n;
+import com.jofkos.signs.utils.nms.NMSUtils;
 
 public class Updater implements Runnable {
 	

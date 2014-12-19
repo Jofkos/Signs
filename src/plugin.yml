@@ -1,6 +1,6 @@
 name: Signs
 main: com.jofkos.signs.Signs
-version: 1.8
+version: 1.9
 author: Jofkos
 description: Simple sign editing.
 softdepend: [LWC, WorldGuard, Towny, QuickShop, Factions, PlotMe]

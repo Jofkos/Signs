@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import com.jofkos.signs.utils.API;
+import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 public class WorldGuardPlugin extends API.APIPlugin {
@@ -13,18 +14,16 @@ public class WorldGuardPlugin extends API.APIPlugin {
 	static {
 		clazz = "com.sk89q.worldguard.bukkit.WorldGuardPlugin";
 	}
-	
+		
 	@Override
 	public boolean canBuild(Player p, Block b) {
-		return getWorldGuard().getRegionManager(b.getWorld()).getApplicableRegions(b.getLocation()).canBuild(getWorldGuard().wrapPlayer(p));
+		return getWorldGuard().canBuild(p, b);
 	}
 	
 	public boolean isInOwnedRegion(Player p, Block b) {
+		LocalPlayer player = getWorldGuard().wrapPlayer(p);
 		for (ProtectedRegion pr : getWorldGuard().getRegionManager(b.getWorld()).getApplicableRegions(b.getLocation())) {
-			if (pr.getOwners().contains(p.getName())) {
-				return true;
-			}
-			if (pr.getMembers().contains(p.getName())) {
+			if (pr.isMember(player)) {
 				return true;
 			}
 		}

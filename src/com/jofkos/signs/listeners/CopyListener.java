@@ -25,18 +25,12 @@ public class CopyListener implements Listener {
 
 	@EventHandler
 	public void onCopy(PlayerInteractEvent e) {
-		if (!e.getAction().toString().contains("CLICK_BLOCK"))
-			return;
-		if (e.getPlayer().isSneaking())
-			return;
-		if (!Utils.isSign(e.getClickedBlock()))
-			return;
-		if (!Config.COPY_MAT.equals(e.getItem()))
-			return;
-		if (!API.canBuild(e.getPlayer(), e.getClickedBlock()))
-			return;
-		if (!e.getPlayer().hasPermission("signs.copy"))
-			return;
+		if (!e.getAction().toString().contains("CLICK_BLOCK")) return;
+		if (e.getPlayer().isSneaking()) return;
+		if (!Utils.isSign(e.getClickedBlock())) return;
+		if (!Config.COPY_MAT.equals(e.getItem())) return;
+		if (!API.canBuild(e.getPlayer(), e.getClickedBlock())) return;
+		if (!e.getPlayer().hasPermission("signs.copy")) return;
 		e.setCancelled(true);
 
 		Player p = e.getPlayer();
@@ -47,8 +41,7 @@ public class CopyListener implements Listener {
 
 		switch (e.getAction()) {
 		case RIGHT_CLICK_BLOCK:
-			if (!p.getInventory().contains(Config.INK.getMaterial(), 1) && Config.COPY_COSTS && !canBypass(p, "copycosts"))
-				return;
+			if (!p.getInventory().contains(Config.INK.getMaterial(), 1) && Config.COPY_COSTS && !canBypass(p, "copycosts")) return;
 
 			if (item.getAmount() > 1) {
 				item.setAmount(item.getAmount() - 1);
@@ -78,11 +71,8 @@ public class CopyListener implements Listener {
 			}
 			break;
 		case LEFT_CLICK_BLOCK:
-			if (!meta.getDisplayName().equals(itemName))
-				return;
-
-			if (!p.getInventory().contains(Config.INK.getMaterial(), 1) && Config.PASTE_COSTS && !canBypass(p, "pastecosts"))
-				return;
+			if (!meta.getDisplayName().equals(itemName)) return;
+			if (!p.getInventory().contains(Config.INK.getMaterial(), 1) && Config.PASTE_COSTS && !canBypass(p, "pastecosts")) return;
 
 			String[] originLines = sign.getLines().clone();
 

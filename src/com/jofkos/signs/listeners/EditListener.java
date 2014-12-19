@@ -10,8 +10,8 @@ import org.bukkit.inventory.meta.BookMeta;
 
 import com.jofkos.signs.utils.API;
 import com.jofkos.signs.utils.Config;
-import com.jofkos.signs.utils.NMSUtils;
 import com.jofkos.signs.utils.Utils;
+import com.jofkos.signs.utils.nms.NMSUtils;
 
 public class EditListener implements Listener {
 	
@@ -29,8 +29,8 @@ public class EditListener implements Listener {
 		if (!API.canBuild(p, sign.getBlock())) return;
 		if (!API.isInOwnedRegion(p, sign.getBlock())) return;
 		Utils.cost(e);
-		NMSUtils.sendPacket(e.getPlayer(), NMSUtils.getSignChange(e.getClickedBlock(), sign.getLines()));
-		NMSUtils.sendSignEditor(e.getPlayer(), e.getClickedBlock());
+		NMSUtils.sendPacket(e.getPlayer(), NMSUtils.getSignChangePacket(e.getClickedBlock(), sign.getLines()));
+		NMSUtils.sendEditor(e.getPlayer(), e.getClickedBlock());
 	}
 	
 	@EventHandler
@@ -46,5 +46,4 @@ public class EditListener implements Listener {
 		BookMeta meta = ((BookMeta)e.getPlayer().getItemInHand().getItemMeta());
 		Utils.write(e.getClickedBlock(), e.getBlockFace(), e.getPlayer(), meta.getPages().toArray(new String[meta.getPageCount()]));
 	}
-	
 }
