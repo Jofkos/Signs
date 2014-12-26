@@ -1,6 +1,8 @@
 package com.jofkos.signs.utils;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
@@ -13,7 +15,7 @@ import com.jofkos.signs.utils.i18n.I18n;
 
 public class API {
 	
-	private static HashMap<String, APIPlugin> plugins = new HashMap<String, APIPlugin>();
+	private static Map<String, APIPlugin> plugins = new HashMap<String, APIPlugin>();
 	
 	public static void load() {
 		for (String s : Signs.getInstance().getDescription().getSoftDepend()) {
@@ -37,9 +39,23 @@ public class API {
 		if (p == null) return true;
 		if (!p.hasPermission("signs.use") && !p.isOp()) return false;
 		if (p.isOp() || p.hasPermission("signs.bypass.*")) return true;
-		for (String a : plugins.keySet()) {
-			if (!canBuild(a, p, b)) {
-				return false;
+		
+		Iterator<String> iterator = plugins.keySet().iterator();
+		
+		while (iterator.hasNext()) {
+			String a = iterator.next();
+
+			try {
+				if (!canBuild(a, p, b)) {
+					return false;
+				}
+			} catch (Exception | Error e) {
+				e.printStackTrace();
+				
+				iterator.remove();
+				
+				Signs.log("The " + a + " integration doesn't work properly, it has been removed from this session.");
+				Signs.log("Please report that error and/or update the plugin (and its depencies)");
 			}
 		}
 		return true;
