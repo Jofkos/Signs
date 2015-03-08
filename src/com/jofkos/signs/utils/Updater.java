@@ -27,7 +27,7 @@ public class Updater implements Runnable {
 	private static final File JAR = new File("plugins", "Signs.jar");
 	private static final File TEMP = new File("plugins/Signs", ".tempupdate");
 	
-	private static String CB_LOCAL, CB_REMOTE;
+	private static double CB_LOCAL, CB_REMOTE;
 	private static double SIGNS_LOCAL, SIGNS_REMOTE;
 	private static String expectedHash;
 		
@@ -40,31 +40,27 @@ public class Updater implements Runnable {
 
 	@Override
 	public void run() {
-		CB_LOCAL = NMSUtils.getVersion();
-		SIGNS_LOCAL = NumberConversions.toDouble(Signs.getInstance().getDescription().getVersion());
+		CB_LOCAL = formatVersion(NMSUtils.getMCVersion());
+		SIGNS_LOCAL = formatVersion(Signs.getInstance().getDescription().getVersion());
 		
-		JSONArray remote; JSONObject last;
+		JSONObject last;
+		
 		try {
-			last = getLast(remote = getRemoteValues());
+			URLConnection con = new URL("https://api.curseforge.com/servermods/files?projectIds=73860").openConnection();
+			con.setConnectTimeout(15 * 1000);
+			JSONArray remote = (JSONArray) JSONValue.parse(new BufferedReader(new InputStreamReader(con.getInputStream())).readLine());
+			last = (JSONObject) remote.get(remote.size()-1);
 		} catch (Exception e) {
 			Signs.log("An error occurred while trying to contact the update server");
 			return;
 		}		
 		
-		setRemotes(last);
-		
-		if (!checkCB()) {
-			while ((SIGNS_REMOTE > SIGNS_LOCAL) && (!CB_LOCAL.equals(CB_REMOTE))) {
-				last = (JSONObject) remote.get(remote.lastIndexOf(last) - 1);
-				setRemotes(last);
-			}
-			if (!checkCB() || (SIGNS_REMOTE <= SIGNS_LOCAL)) {
-				last = getLast(remote);
-			}
-		}
-		
+		CB_REMOTE = formatVersion(getMCVersion((String) last.get("gameVersion")));
+		SIGNS_REMOTE = formatVersion(((String) last.get("name")).substring(7));
+		expectedHash = (String) last.get("md5");
+				
 		if (SIGNS_LOCAL >= SIGNS_REMOTE) {
-			Signs.log(I18n._("updater.uptodate", SIGNS_LOCAL));
+			Signs.log(i18n("updater.uptodate", SIGNS_LOCAL));
 			return;
 		}
 		
@@ -72,27 +68,21 @@ public class Updater implements Runnable {
 		if (Config.AUTO_UPDATE) {
 			autoUpdate((String) last.get("downloadUrl"));
 		} else {
-			logger.add(I18n._("updater.outofdate", SIGNS_LOCAL));
+			logger.add(i18n("updater.outofdate", SIGNS_LOCAL));
 			if (checkCB()) {
-				logger.add(I18n._("updater.newversion", SIGNS_REMOTE));
+				logger.add(i18n("updater.newversion", SIGNS_REMOTE));
 			} else {
-				logger.add(I18n._("updater.newversion2", SIGNS_REMOTE, CB_REMOTE));
+				logger.add(i18n("updater.newversion2", SIGNS_REMOTE, CB_REMOTE));
 			}
 		}
 		logger.add("===============================").out();
 	}
 	
-	private void setRemotes(JSONObject o) {
-		CB_REMOTE = getMCVersion((String) o.get("gameVersion"));
-		SIGNS_REMOTE = NumberConversions.toDouble(((String) o.get("name")).replace("Signs v", ""));
-		expectedHash = (String) o.get("md5");
-	}
-	
 	private boolean checkCB() {
-		if (CB_LOCAL.startsWith("1.7") && SIGNS_REMOTE > 1.5) {
+		if (CB_LOCAL >= 1.7 && SIGNS_REMOTE > 1.5) {
 			return true;
 		} else {
-			return CB_LOCAL.contains(CB_REMOTE);
+			return CB_LOCAL >= CB_REMOTE;
 		}
 	}
 	
@@ -106,27 +96,17 @@ public class Updater implements Runnable {
 		return cb;
 	}
 	
-	private JSONObject getLast(JSONArray a) {
-		return (JSONObject) a.get(a.size()-1);
-	}
-	
-	private JSONArray getRemoteValues() throws Exception {
-		URLConnection con = new URL("https://api.curseforge.com/servermods/files?projectIds=73860").openConnection();
-		con.setConnectTimeout(15 * 1000);
-		return (JSONArray) JSONValue.parse(new BufferedReader(new InputStreamReader(con.getInputStream())).readLine());
-	}
-	
 	private void autoUpdate(String url) {
 		if (checkCB()) {
-			logger.add(I18n._("updater.download.starting"));
+			logger.add(i18n("updater.download.starting"));
 			
 			long time = System.currentTimeMillis();
 			
 			if (downloadFile(url)) {
-				logger.add(I18n._("updater.download.complete", System.currentTimeMillis() - time, SIGNS_REMOTE));
+				logger.add(i18n("updater.download.complete", System.currentTimeMillis() - time, SIGNS_REMOTE));
 			}
 		} else {
-			logger.add(I18n._("updater.othermc", SIGNS_LOCAL, CB_LOCAL, SIGNS_REMOTE, CB_REMOTE));
+			logger.add(i18n("updater.othermc", SIGNS_LOCAL, CB_LOCAL, SIGNS_REMOTE, CB_REMOTE));
 		}
 	}
 	
@@ -142,6 +122,25 @@ public class Updater implements Runnable {
 			Signs.log("An error occured while downloading the new version: " + e.getMessage());
 			return false;
 		}
+	}
+	
+
+	private String formatVersion(double version) {
+		return Double.toString(version).replaceAll("(\\d{1})(?!\\.)(?=\\d)", "$1.");
+	}
+	
+	private double formatVersion(String version) {
+		return NumberConversions.toDouble(version.replaceAll("(?<=(?:\\d\\.))(.)\\.", "$1"));
+	}
+	
+	private String i18n(String key, Object...objs) {
+		for (int i = 0; i < objs.length; i++) {
+			Object obj = objs[i];
+			if (obj instanceof Double) {
+				objs[i] = formatVersion((double) obj);
+			}
+		}
+		return I18n._(key, objs);
 	}
 	
 	public static boolean moveTemp() throws Exception {
