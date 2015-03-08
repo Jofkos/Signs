@@ -15,7 +15,7 @@ public abstract class NMSUtils implements NMSCore {
 	private static String NMSVersion = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 	
 	protected static NMSCore impl = getImpl();
-
+	
 	private static NMSCore getImpl() {
 		try {
 			int version = NumberConversions.toInt(NMSVersion.replace("_", "").substring(1, 3));
@@ -33,7 +33,7 @@ public abstract class NMSUtils implements NMSCore {
 
 	protected static Class<?> getClass(String name) {
 		try {
-			name = name.replaceAll("(obc|nms)", "$1\\." + NMSVersion);
+			name = name.replaceAll("^(obc|nms)(?=\\.)", "$1\\." + NMSVersion);
 			name = name.replace("obc", "org.bukkit.craftbukkit");
 			name = name.replace("nms", "net.minecraft.server");
 			return Class.forName(name);
@@ -112,8 +112,12 @@ public abstract class NMSUtils implements NMSCore {
 	public static Object getTile(Block sign) {
 		return impl.getTileEntity(sign);
 	}
-
-	public static String getVersion() {
+	
+	public static String getNMSVersion() {
+		return NMSVersion;
+	}
+	
+	public static String getMCVersion() {
 		try {
 			return Reflect.invoke(getHandleServer.invoke(Bukkit.getServer()), "getVersion");
 		} catch (Exception e) {
