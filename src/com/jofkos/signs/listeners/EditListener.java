@@ -3,6 +3,7 @@ package com.jofkos.signs.listeners;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -15,14 +16,13 @@ import com.jofkos.signs.utils.nms.NMSUtils;
 
 public class EditListener implements Listener {
 	
-	@EventHandler
+	@EventHandler(priority=EventPriority.MONITOR)
 	public void onClickEditSign(PlayerInteractEvent e) throws Exception {
 		if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 		if (Config.COPY_MAT.equals(e.getItem())) return;
 		if (!Utils.isAction(e)) return;
 		if (!Utils.isSign(e.getClickedBlock())) return;
 		
-		e.setCancelled(true);
 		Sign sign = (Sign) e.getClickedBlock().getState();
 		
 		Player p = e.getPlayer();
