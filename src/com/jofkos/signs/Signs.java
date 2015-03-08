@@ -21,6 +21,7 @@ public class Signs extends JavaPlugin {
 		I18n.load();
 		API.load();
 		ReloadCommand.load();
+		ColorCodesCommand.load();
 		Listeners.load();
 		GlowEnchantment.load();
 		

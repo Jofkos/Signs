@@ -8,9 +8,14 @@ softdepend: [LWC, WorldGuard, Towny, QuickShop, Factions, PlotMe]
 commands:
   signs:
     description: Reloads the configuration file
-    usage: /signs
+    usage: /<command>
     aliases: [signs reload]
     permission: signs.reload
+  colorcodes:
+    description: Shows the avaiable color codes/modifiers
+    usage: /<command>
+    aliases: [colorcode, cc, colorc, colors, ccodes]
+    permission: signs.colors
 
 permissions:
   signs.use:
@@ -28,6 +33,9 @@ permissions:
   signs.reload:
     description: Allows the user to use the /signs command
     default: op
+  signs.colorcodes:
+    description: Allows the user to use the /signs command
+    default: true
   signs.bypass.editcosts:
     description: Even if EditCosts is turned on, it is free to edit signs
     default: false
