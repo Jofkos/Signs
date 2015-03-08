@@ -11,7 +11,7 @@ public class I18n {
 	private static ResourceBundle localeBundle;
 	
 	public static void load() {
-		localeBundle = ResourceBundle.getBundle("messages", Config.LOCALE, new FileClassloader(Signs.class.getClassLoader()), FallbackControl.CONTROL);
+		localeBundle = ResourceBundle.getBundle("messages", Config.LOCALE, new FileClassloader(Signs.class.getClassLoader()));
 	}
 	
 	public static String _(String string, Object... objs) {
