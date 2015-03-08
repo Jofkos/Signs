@@ -15,9 +15,9 @@ public class TownyPlugin extends API.APIPlugin {
 	}
 	
 	@Override
-	public boolean canBuild(Player p, Block b) {
+	public boolean canBuild(Player player, Block block) {
 		try {
-			return PlayerCacheUtil.getCachePermission(p, b.getLocation(), b.getTypeId(), b.getData(), TownyPermission.ActionType.BUILD);
+			return PlayerCacheUtil.getCachePermission(player, block.getLocation(), block.getTypeId(), block.getData(), TownyPermission.ActionType.BUILD);
 		} catch (Exception e) {
 			return true;
 		}

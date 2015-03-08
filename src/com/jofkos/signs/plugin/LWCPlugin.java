@@ -13,7 +13,7 @@ public class LWCPlugin extends API.APIPlugin {
 	}
 	
 	@Override
-	public boolean canBuild(Player p, Block b) {
-		return LWC.getInstance().findProtection(b) == null ? true : LWC.getInstance().canAccessProtection(p, b);
+	public boolean canBuild(Player player, Block block) {
+		return LWC.getInstance().findProtection(block) == null ? true : LWC.getInstance().canAccessProtection(player, block);
 	}
 }

@@ -16,14 +16,14 @@ public class WorldGuardPlugin extends API.APIPlugin {
 	}
 		
 	@Override
-	public boolean canBuild(Player p, Block b) {
-		return getWorldGuard().canBuild(p, b);
+	public boolean canBuild(Player player, Block block) {
+		return getWorldGuard().canBuild(player, block);
 	}
 	
-	public boolean isInOwnedRegion(Player p, Block b) {
-		LocalPlayer player = getWorldGuard().wrapPlayer(p);
-		for (ProtectedRegion pr : getWorldGuard().getRegionManager(b.getWorld()).getApplicableRegions(b.getLocation())) {
-			if (pr.isMember(player)) {
+	public boolean isInOwnedRegion(Player player, Block block) {
+		LocalPlayer localPlayer = getWorldGuard().wrapPlayer(player);
+		for (ProtectedRegion pr : getWorldGuard().getRegionManager(block.getWorld()).getApplicableRegions(block.getLocation())) {
+			if (pr.isMember(localPlayer)) {
 				return true;
 			}
 		}

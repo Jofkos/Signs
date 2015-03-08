@@ -18,15 +18,15 @@ public class API {
 	private static Map<String, APIPlugin> plugins = new HashMap<String, APIPlugin>();
 	
 	public static void load() {
-		for (String s : Signs.getInstance().getDescription().getSoftDepend()) {
+		for (String dependency : Signs.getInstance().getDescription().getSoftDepend()) {
 			try {
-				Class<?> p = Class.forName("com.jofkos.signs.plugin." + s + "Plugin");
-				Class<?> c = Class.forName((String) p.getField("clazz").get(null));
+				Class<?> apiPlugin = Class.forName("com.jofkos.signs.plugin." + dependency + "Plugin");
+				Class<?> pluginClass = Class.forName((String) apiPlugin.getField("clazz").get(null));
 				
-				Plugin a = Bukkit.getPluginManager().getPlugin(s);
+				Plugin plugin = Bukkit.getPluginManager().getPlugin(dependency);
 				
-				if (c != null && a != null && c.isInstance(a) && a.isEnabled()) {
-					plugins.put(s.toLowerCase(), (APIPlugin) p.newInstance());
+				if (pluginClass != null && plugin != null && pluginClass.isInstance(plugin) && plugin.isEnabled()) {
+					plugins.put(dependency.toLowerCase(), (APIPlugin) apiPlugin.newInstance());
 				}
 			} catch (Exception e) {}
 		}
@@ -35,18 +35,18 @@ public class API {
 		}
 	}
 	
-	public static boolean canBuild(Player p, Block b) {
-		if (p == null) return true;
-		if (!p.hasPermission("signs.use") && !p.isOp()) return false;
-		if (p.isOp() || p.hasPermission("signs.bypass.*")) return true;
+	public static boolean canBuild(Player player, Block block) {
+		if (player == null) return true;
+		if (!player.hasPermission("signs.use") && !player.isOp()) return false;
+		if (player.isOp() || player.hasPermission("signs.bypass.*")) return true;
 		
 		Iterator<String> iterator = plugins.keySet().iterator();
 		
 		while (iterator.hasNext()) {
-			String a = iterator.next();
+			String plugin = iterator.next();
 
 			try {
-				if (!canBuild(a, p, b)) {
+				if (!canBuild(plugin, player, block)) {
 					return false;
 				}
 			} catch (Exception | Error e) {
@@ -54,27 +54,27 @@ public class API {
 				
 				iterator.remove();
 				
-				Signs.log("The " + a + " integration doesn't work properly, it has been removed from this session.");
+				Signs.log("The " + plugin + " integration doesn't work properly, it has been removed from this session.");
 				Signs.log("Please report that error and/or update the plugin (and its depencies)");
 			}
 		}
 		return true;
 	}
 	
-	public static boolean canBuild(String plugin, Player p, Block b) {
+	public static boolean canBuild(String plugin, Player player, Block block) {
 		plugin = plugin.toLowerCase();
 		if (plugins.keySet().contains(plugin)) {
-			return p.hasPermission("signs.bypass." + plugin) || plugins.get(plugin).canBuild(p, b);
+			return player.hasPermission("signs.bypass." + plugin) || plugins.get(plugin).canBuild(player, block);
 		}
 		return true;
 	}
 	
-	public static boolean isInOwnedRegion(Player p, Block b) {
-		return Config.ONLY_OWNED && plugins.keySet().contains("worldguard") && !p.hasPermission("signs.bypass.worldguard") && !p.isOp() ? ((WorldGuardPlugin) plugins.get("worldguard")).isInOwnedRegion(p, b) : true;
+	public static boolean isInOwnedRegion(Player player, Block block) {
+		return Config.ONLY_OWNED && plugins.keySet().contains("worldguard") && !player.hasPermission("signs.bypass.worldguard") && !player.isOp() ? ((WorldGuardPlugin) plugins.get("worldguard")).isInOwnedRegion(player, block) : true;
 	}
 	
 	public static abstract class APIPlugin {
 		public static String clazz;
-		public abstract boolean canBuild(Player p, Block b);
+		public abstract boolean canBuild(Player player, Block block);
 	}
 }

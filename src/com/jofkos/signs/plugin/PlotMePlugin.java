@@ -15,18 +15,18 @@ public class PlotMePlugin extends API.APIPlugin {
 	}
 	
 	@Override
-	public boolean canBuild(Player p, Block b) {
-		if (!PlotManager.isPlotWorld(b) || PlotMe.cPerms(p, "plotme.admin.buildanywhere")) {
+	public boolean canBuild(Player player, Block block) {
+		if (!PlotManager.isPlotWorld(block) || PlotMe.cPerms(player, "plotme.admin.buildanywhere")) {
 			return true;
 		}
 		
-		String id = PlotManager.getPlotId(b.getLocation());
+		String id = PlotManager.getPlotId(block.getLocation());
 		
 		if (id.equalsIgnoreCase("") || id == null) {
 			return false;
 		}
 		
-		Plot plot = (Plot) PlotManager.getMap(p).plots.get(id);
-		return plot != null && plot.isAllowed(p.getUniqueId());
+		Plot plot = (Plot) PlotManager.getMap(player).plots.get(id);
+		return plot != null && plot.isAllowed(player.getUniqueId());
 	}
 }

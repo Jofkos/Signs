@@ -14,23 +14,22 @@ public class FactionsPlugin extends API.APIPlugin {
 		clazz = "com.massivecraft.factions.Factions";
 	}
 	
-	private boolean oldAPI;
+	private boolean oldAPI = false;
 	
-	public FactionsPlugin() {		
+	public FactionsPlugin() {
 		try {
 			EngineMain.class.getName();
-			oldAPI = false;
 		} catch (NoClassDefFoundError e) {
 			oldAPI = true;
 		}
 	}
 	
 	@Override
-	public boolean canBuild(Player p, Block b) {
+	public boolean canBuild(Player player, Block block) {
 		if (oldAPI) {
-			return FactionsListenerMain.canPlayerBuildAt(p, PS.valueOf(b), true);			
+			return FactionsListenerMain.canPlayerBuildAt(player, PS.valueOf(block), true);			
 		} else {
-			return EngineMain.canPlayerBuildAt(p, PS.valueOf(b), true);
+			return EngineMain.canPlayerBuildAt(player, PS.valueOf(block), true);
 		}
 	}
 
