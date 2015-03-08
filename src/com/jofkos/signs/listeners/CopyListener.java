@@ -20,7 +20,6 @@ import com.jofkos.signs.utils.Config;
 import com.jofkos.signs.utils.Utils;
 import com.jofkos.signs.utils.i18n.I18n;
 
-@SuppressWarnings({ "deprecation" })
 public class CopyListener implements Listener {
 
 	@EventHandler

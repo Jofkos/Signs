@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.util.NumberConversions;
 
 public interface NMSCore {
 	
@@ -20,7 +21,7 @@ public interface NMSCore {
 	static Class<?> nmsWorld = NMSUtils.getClass("nms.World");
 	static Class<?> nmsPlayer = NMSUtils.getClass("nms.EntityPlayer");
 	
-	static Class<?> chatSerializer = NMSUtils.getClass("nms.ChatSerializer");
+	static Class<?> chatSerializer = NMSUtils.getClass("nms." + (NumberConversions.toInt(NMSUtils.getNMSVersion().replaceAll("\\D", "")) >= 182 ? "IChatBaseComponent$" : "") + "ChatSerializer");
 	static Class<?> ichatBase = NMSUtils.getClass("nms.IChatBaseComponent");
 	
 	static Constructor<?> chatComponentConst = NMSUtils.getConstructor(NMSUtils.getClass("nms.ChatComponentText"), String.class);

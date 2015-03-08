@@ -17,7 +17,6 @@ import org.bukkit.inventory.ItemStack;
 
 import com.jofkos.signs.utils.Config.Action;
 
-@SuppressWarnings({"deprecation"})
 public class Utils {
 
 	private static final List<Material> SIGNS = Arrays.asList(Material.WALL_SIGN, Material.SIGN_POST, Material.SIGN);
