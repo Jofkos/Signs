@@ -34,7 +34,7 @@ permissions:
     description: Allows the user to use the /signs command
     default: op
   signs.colorcodes:
-    description: Allows the user to use the /signs command
+    description: Allows the user to use color codes
     default: true
   signs.bypass.editcosts:
     description: Even if EditCosts is turned on, it is free to edit signs
