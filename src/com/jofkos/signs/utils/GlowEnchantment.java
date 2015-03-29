@@ -6,6 +6,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.enchantments.EnchantmentWrapper;
 import org.bukkit.inventory.ItemStack;
+
+import com.jofkos.signs.utils.reflect.Reflect;
 	
 public class GlowEnchantment extends EnchantmentWrapper {
 	

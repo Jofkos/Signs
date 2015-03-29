@@ -34,7 +34,7 @@ public class Updater implements Runnable {
 	private BlockLogger logger = new BlockLogger();
 	
 	public static void checkVersion() {
-		if (!Config.NOTIFY_UPDATES) return;
+		if (!Config.NOTIFY_UPDATES  && !Config.AUTO_UPDATE) return;
 		Bukkit.getScheduler().runTaskAsynchronously(Signs.getInstance(), new Updater());
 	}
 

@@ -16,7 +16,7 @@ import com.jofkos.signs.utils.nms.NMSUtils;
 
 public class EditListener implements Listener {
 	
-	@EventHandler(priority=EventPriority.MONITOR)
+	@EventHandler(priority=EventPriority.LOWEST)
 	public void onClickEditSign(PlayerInteractEvent e) throws Exception {
 		if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 		if (Config.COPY_MAT.equals(e.getItem())) return;
@@ -29,7 +29,14 @@ public class EditListener implements Listener {
 		if (!API.canBuild(p, sign.getBlock())) return;
 		if (!API.isInOwnedRegion(p, sign.getBlock())) return;
 		Utils.cost(e);
-		NMSUtils.sendPacket(e.getPlayer(), NMSUtils.getSignChangePacket(e.getClickedBlock(), sign.getLines()));
+		
+		String[] lines = sign.getLines().clone();
+		for (int i = 0; i < 4; i++) {
+			sign.setLine(i, "");
+		}
+		sign.update();
+		
+		NMSUtils.sendPacket(e.getPlayer(), NMSUtils.getSignChangePacket(e.getClickedBlock(), lines));
 		NMSUtils.sendEditor(e.getPlayer(), e.getClickedBlock());
 	}
 	

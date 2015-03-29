@@ -9,7 +9,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.util.NumberConversions;
 
-import com.jofkos.signs.utils.Reflect;
+import com.jofkos.signs.utils.reflect.Reflect;
 
 public abstract class NMSUtils implements NMSCore {
 	private static String NMSVersion = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];

@@ -3,10 +3,10 @@ package com.jofkos.signs.utils.nms;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
-import com.jofkos.signs.utils.PacketReflecter;
-import com.jofkos.signs.utils.Reflect;
-import com.jofkos.signs.utils.Reflecter;
 import com.jofkos.signs.utils.Utils;
+import com.jofkos.signs.utils.reflect.PacketReflecter;
+import com.jofkos.signs.utils.reflect.Reflect;
+import com.jofkos.signs.utils.reflect.Reflecter;
 
 public class NMSImpl17 implements NMSCore {
 

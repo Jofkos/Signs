@@ -139,7 +139,7 @@ public class Utils {
 	public static String[] colorCodes(String... lines) {
 		String[] r = new String[lines.length];
 		for (int i = 0; i < lines.length; i++) {
-			r[i] = lines[i].replaceAll(ChatColor.COLOR_CHAR + "([a-z0-9])", "&$1");
+			r[i] = lines[i].replaceAll(ChatColor.COLOR_CHAR + "(?=[a-fk-or0-9])", "&");
 			while (r[i].startsWith("&0") || r[i].startsWith("§0")) {
 				r[i] = r[i].substring(2);
 			}

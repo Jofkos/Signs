@@ -1,4 +1,4 @@
-package com.jofkos.signs.utils;
+package com.jofkos.signs.utils.reflect;
 
 public class Reflecter {
 

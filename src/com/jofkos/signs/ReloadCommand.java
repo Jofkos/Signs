@@ -4,6 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import com.jofkos.signs.utils.ColorUtils;
 import com.jofkos.signs.utils.Config;
 import com.jofkos.signs.utils.i18n.I18n;
 
@@ -18,6 +19,7 @@ public class ReloadCommand implements CommandExecutor {
 		
 		Config.reload();
 		I18n.load();
+		ColorUtils.load();
 		Command.broadcastCommandMessage(cs, I18n._("config.reloaded"));
 		
 		return true;

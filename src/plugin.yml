@@ -1,6 +1,6 @@
 name: Signs
 main: com.jofkos.signs.Signs
-version: 1.9.2
+version: 1.9.2.1
 author: Jofkos
 description: Simple sign editing.
 softdepend: [LWC, WorldGuard, Towny, QuickShop, Factions, PlotMe]
@@ -8,14 +8,19 @@ softdepend: [LWC, WorldGuard, Towny, QuickShop, Factions, PlotMe]
 commands:
   signs:
     description: Reloads the configuration file
-    usage: /<command>
+    usage: §c/<command>
     aliases: [signs reload]
     permission: signs.reload
   colorcodes:
     description: Shows the avaiable color codes/modifiers
-    usage: /<command>
+    usage: §c/<command>
     aliases: [colorcode, cc, colorc, colors, ccodes]
     permission: signs.colors
+  edit:
+    description: Edits a specific line of a sign
+    usage: §c/<command> <line (1-4)> <text>
+    aliases: [edits, editsign, esign, signedit, setline, changeline, line, editline, eline, sline]
+    permission: signs.edit
 
 permissions:
   signs.use:
@@ -33,6 +38,9 @@ permissions:
   signs.reload:
     description: Allows the user to use the /signs command
     default: op
+  signs.edit:
+    description: Allows the user to use the /edit command
+    default: op
   signs.colorcodes:
     description: Allows the user to use color codes
     default: true
@@ -46,12 +54,40 @@ permissions:
     description: Even if PasteCosts is turned on, it is free to paste text on signs
     default: false
   signs.*:
-    description: Gives access to all Sign permissions
+    description: Gives access to all sign permissions
     default: op
     children:
+      signs.edit: true
       signs.use: true
       signs.signwall: true
-      signs.signcolors: true
+      signs.signcolors.*: true
       signs.bypass.*: true
       signs.reload: true
       signs.copy: true
+  signs.signcolors.*:
+    description: Gives access to all sign colors
+    default: op
+    children:
+      signs.signcolors: true
+      signs.signcolors.black: true
+      signs.signcolors.dark_blue: true
+      signs.signcolors.dark_green: true
+      signs.signcolors.dark_aqua: true
+      signs.signcolors.dark_red: true
+      signs.signcolors.dark_purple: true
+      signs.signcolors.gold: true
+      signs.signcolors.gray: true
+      signs.signcolors.dark_gray: true
+      signs.signcolors.blue: true
+      signs.signcolors.green: true
+      signs.signcolors.aqua: true
+      signs.signcolors.red: true
+      signs.signcolors.light_purple: true
+      signs.signcolors.yellow: true
+      signs.signcolors.white: true
+      signs.signcolors.obfuscated: true
+      signs.signcolors.bold: true
+      signs.signcolors.strikethrough: true
+      signs.signcolors.underline: true
+      signs.signcolors.italic: true
+      signs.signcolors.reset: true

@@ -1,4 +1,4 @@
-package com.jofkos.signs.utils;
+package com.jofkos.signs.utils.reflect;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

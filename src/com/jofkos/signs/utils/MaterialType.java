@@ -24,7 +24,7 @@ public class MaterialType {
 	}
 	
 	public ItemStack toItemStack() {
-		return new ItemStack(this.mat, 1, data);
+		return new ItemStack(this.mat, 1, this.data);
 	}
 	
 	public MaterialData toMaterialData() {

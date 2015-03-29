@@ -56,7 +56,7 @@ public class CopyListener implements Listener {
 
 			List<String> lore = new ArrayList<String>();
 			for (String s : sign.getLines()) {
-				lore.add("§r§d>§r§7§o " + s.replaceAll("§([0-9a-fk-or])", "&$1"));
+				lore.add("§r§d>§r§7§o " + s.replaceAll("§(?=[0-9a-fk-or])", "&"));
 			}
 			meta.setLore(lore);
 			single.setItemMeta(meta);

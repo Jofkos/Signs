@@ -24,6 +24,7 @@ public class Config {
 	public static Action ACTION = null;
 	public static boolean COSTS = false;
 	public static boolean COLORS = true;
+	public static boolean PER_COLOR_PERMISSIONS = false;
 	public static boolean ONLY_OWNED = false;
 	public static boolean NOTIFY_UPDATES = true;
 	public static boolean AUTO_UPDATE = true;
@@ -62,6 +63,7 @@ public class Config {
 		config.addDefault("Action", "INK_SACK:0");
 		config.addDefault("EditCosts", false);
 		config.addDefault("SignColors", true);
+		config.addDefault("PerColorPermissions", false);
 		config.addDefault("OnlyInOwnedRegion", false);
 		config.addDefault("NotifyUpdates", true);
 		config.addDefault("AutoUpdate", true);
@@ -82,6 +84,7 @@ public class Config {
 		ACTION = Action.fromString(config.getString("Action"));
 		COSTS = config.getBoolean("EditCosts");
 		COLORS = config.getBoolean("SignColors");
+		PER_COLOR_PERMISSIONS = config.getBoolean("PerColorPermissions");
 		ONLY_OWNED = config.getBoolean("OnlyInOwnedRegion");
 		NOTIFY_UPDATES = config.getBoolean("NotifyUpdates");
 		AUTO_UPDATE = config.getBoolean("AutoUpdate");

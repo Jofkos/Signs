@@ -9,10 +9,10 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 import com.google.common.collect.Lists;
-import com.jofkos.signs.utils.PacketReflecter;
-import com.jofkos.signs.utils.Reflect;
-import com.jofkos.signs.utils.Reflecter;
 import com.jofkos.signs.utils.Utils;
+import com.jofkos.signs.utils.reflect.PacketReflecter;
+import com.jofkos.signs.utils.reflect.Reflect;
+import com.jofkos.signs.utils.reflect.Reflecter;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class NMSImpl18 implements NMSCore {
