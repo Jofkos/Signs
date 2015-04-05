@@ -119,6 +119,7 @@ public class Config {
 	
 	public static void reloadConfig() {
 		plugin.reloadConfig();
+		config = plugin.getConfig();
 	}
 	
 	public enum Action {
