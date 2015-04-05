@@ -1,9 +1,10 @@
-package com.jofkos.signs;
+package com.jofkos.signs.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import com.jofkos.signs.Signs;
 import com.jofkos.signs.utils.ColorUtils;
 import com.jofkos.signs.utils.Config;
 import com.jofkos.signs.utils.i18n.I18n;

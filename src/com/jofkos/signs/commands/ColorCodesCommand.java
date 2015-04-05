@@ -1,4 +1,4 @@
-package com.jofkos.signs;
+package com.jofkos.signs.commands;
 
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import com.jofkos.signs.Signs;
 import com.jofkos.signs.utils.Config;
 
 public class ColorCodesCommand implements CommandExecutor {
@@ -18,14 +19,24 @@ public class ColorCodesCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender cs, Command cmd, String label, String[] args) {
 		
 		for (ChatColor color : ChatColor.values()) {
-			if (Config.PER_COLOR_PERMISSIONS && !cs.hasPermission("signs.signcolors." + color.name().toString())) continue;
+			StringBuilder message = new StringBuilder();
+			
 			if (color != ChatColor.MAGIC) {
-				cs.sendMessage(color + "&" + color.getChar() + " " + WordUtils.capitalizeFully(color.name()).replace("_", " "));
-			} else {
-				cs.sendMessage("&" + color.getChar() + " " + WordUtils.capitalizeFully(color.name()).replace("_", " ") + " " + color + WordUtils.capitalizeFully(color.name()).replace("_", " "));
+				message.append(color);
 			}
+			
+			if (Config.PER_COLOR_PERMISSIONS && !cs.hasPermission("signs.signcolors." + color.name().toLowerCase())) {
+				message.append(ChatColor.ITALIC);
+			}
+			
+			message.append("&" + color.getChar() + " " + WordUtils.capitalizeFully(color.name()).replace("_", " "));
+			
+			if (color == ChatColor.MAGIC) {
+				message.append(" " + color + WordUtils.capitalizeFully(color.name()).replace("_", " "));
+			}
+			
+			cs.sendMessage(message.toString());
 		}
-		
 		return true;
 	}
 

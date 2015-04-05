@@ -8,17 +8,17 @@ softdepend: [LWC, WorldGuard, Towny, QuickShop, Factions, PlotMe]
 commands:
   signs:
     description: Reloads the configuration file
-    usage: §c/<command>
+    usage: "\u00A7c/<command>"
     aliases: [signs reload]
     permission: signs.reload
   colorcodes:
     description: Shows the avaiable color codes/modifiers
-    usage: §c/<command>
+    usage: "\u00A7c/<command>"
     aliases: [colorcode, cc, colorc, colors, ccodes]
     permission: signs.colors
   edit:
     description: Edits a specific line of a sign
-    usage: §c/<command> <line (1-4)> <text>
+    usage: "\u00A7c/<command> <line (1-4)> <text>"
     aliases: [edits, editsign, esign, signedit, setline, changeline, line, editline, eline, sline]
     permission: signs.edit
 
@@ -31,9 +31,6 @@ permissions:
     default: op
   signs.signwall:
     description: Allows the user to write on a sign wall.
-    default: op
-  signs.signcolors:
-    description: Allows the user to use colors.
     default: op
   signs.reload:
     description: Allows the user to use the /signs command
@@ -63,15 +60,14 @@ permissions:
       signs.edit: true
       signs.use: true
       signs.signwall: true
-      signs.signcolors.*: true
+      signs.signcolors: true
       signs.bypass.*: true
       signs.reload: true
       signs.copy: true
-  signs.signcolors.*:
+  signs.signcolors:
     description: Gives access to all sign colors
     default: op
     children:
-      signs.signcolors: true
       signs.signcolors.black: true
       signs.signcolors.dark_blue: true
       signs.signcolors.dark_green: true

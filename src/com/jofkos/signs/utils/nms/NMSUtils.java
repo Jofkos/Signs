@@ -11,7 +11,7 @@ import org.bukkit.util.NumberConversions;
 
 import com.jofkos.signs.utils.reflect.Reflect;
 
-public abstract class NMSUtils implements NMSCore {
+public abstract class NMSUtils {
 	private static String NMSVersion = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 	
 	protected static NMSCore impl = getImpl();
@@ -64,11 +64,11 @@ public abstract class NMSUtils implements NMSCore {
 
 	public static void sendPacket(Player p, Object packet) {
 		try {
-			if (!packetClass.isAssignableFrom(packet.getClass())) {
-				throw new IllegalArgumentException(packet.getClass().getName() + " is not a " + packetClass.getName());
+			if (!NMSCore.packetClass.isAssignableFrom(packet.getClass())) {
+				throw new IllegalArgumentException(packet.getClass().getName() + " is not a " + NMSCore.packetClass.getName());
 			}
 			
-			sendPacket.invoke(Reflect.get(getHandlePlayer.invoke(p), "playerConnection"), packet);
+			NMSCore.sendPacket.invoke(Reflect.get(NMSCore.getHandlePlayer.invoke(p), "playerConnection"), packet);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -78,8 +78,8 @@ public abstract class NMSUtils implements NMSCore {
 		try {
 			Class<?> packet = getClass("nms." + name);
 
-			if (!packetClass.isAssignableFrom(packet)) {
-				throw new IllegalArgumentException(packet.getCanonicalName() + " is not a " + packetClass.getCanonicalName());
+			if (!NMSCore.packetClass.isAssignableFrom(packet)) {
+				throw new IllegalArgumentException(packet.getCanonicalName() + " is not a " + NMSCore.packetClass.getCanonicalName());
 			}
 			return packet.newInstance();
 		} catch (Exception e) {
@@ -90,7 +90,7 @@ public abstract class NMSUtils implements NMSCore {
 	
 	public static Object getNMSWorld(World world) {
 		try {
-			return nmsWorld.cast(getHandleWorld.invoke(world));
+			return NMSCore.nmsWorld.cast(NMSCore.getHandleWorld.invoke(world));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -119,7 +119,7 @@ public abstract class NMSUtils implements NMSCore {
 	
 	public static String getMCVersion() {
 		try {
-			return Reflect.invoke(getHandleServer.invoke(Bukkit.getServer()), "getVersion");
+			return Reflect.invoke(NMSCore.getHandleServer.invoke(Bukkit.getServer()), "getVersion");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

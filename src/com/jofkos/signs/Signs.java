@@ -3,6 +3,9 @@ package com.jofkos.signs;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.jofkos.signs.commands.ColorCodesCommand;
+import com.jofkos.signs.commands.EditCommand;
+import com.jofkos.signs.commands.ReloadCommand;
 import com.jofkos.signs.listeners.Listeners;
 import com.jofkos.signs.utils.API;
 import com.jofkos.signs.utils.ColorUtils;
@@ -19,14 +22,19 @@ public class Signs extends JavaPlugin {
 		plugin = this;
 		Config.load();
 		
+		
 		I18n.load();
 		API.load();
+		
+		Listeners.load();
+		
 		ReloadCommand.load();
 		ColorCodesCommand.load();
 		EditCommand.load();
-		Listeners.load();
+		
 		GlowEnchantment.load();
 		ColorUtils.load();
+		
 		
 		Updater.checkVersion();
 		

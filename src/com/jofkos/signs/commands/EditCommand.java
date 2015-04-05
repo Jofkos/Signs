@@ -1,4 +1,4 @@
-package com.jofkos.signs;
+package com.jofkos.signs.commands;
 
 import java.util.Set;
 
@@ -14,6 +14,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.SignChangeEvent;
 
+import com.jofkos.signs.Signs;
 import com.jofkos.signs.utils.i18n.I18n;
 
 public class EditCommand implements CommandExecutor {
