@@ -32,11 +32,6 @@ permissions:
   signs.signwall:
     description: Allows the user to write on a sign wall.
     default: op
-  signs.signcolors:
-    description: Allows the user to use colors.
-    default: op
-    children:
-      signs.signcolors.all: true
   signs.reload:
     description: Allows the user to use the /signs command
     default: op
@@ -46,9 +41,6 @@ permissions:
   signs.colorcodes:
     description: Allows the user to use the /colorcodes command
     default: op
-  signs.signcolors:
-    description: Allows the user to use color codes
-    default: true
   signs.bypass.editcosts:
     description: Even if EditCosts is turned on, it is free to edit signs
     default: false
@@ -69,8 +61,8 @@ permissions:
       signs.bypass.*: true
       signs.reload: true
       signs.copy: true
-  signs.signcolors.all:
-    description: Gives access to all sign colors
+  signs.signcolors:
+    description: Allows the user to use colors
     default: op
     children:
       signs.signcolors.black: true
