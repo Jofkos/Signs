@@ -7,7 +7,7 @@ import com.jofkos.signs.utils.API;
 import com.palmergames.bukkit.towny.object.TownyPermission;
 import com.palmergames.bukkit.towny.utils.PlayerCacheUtil;
 
-@SuppressWarnings({"deprecation"})
+@SuppressWarnings("deprecation")
 public class TownyPlugin extends API.APIPlugin {
 	
 	static {

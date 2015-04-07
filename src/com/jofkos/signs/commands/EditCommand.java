@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.SignChangeEvent;
 
 import com.jofkos.signs.Signs;
+import com.jofkos.signs.utils.API;
 import com.jofkos.signs.utils.i18n.I18n;
 
 public class EditCommand implements CommandExecutor {
@@ -47,6 +48,11 @@ public class EditCommand implements CommandExecutor {
 		Block block = player.getTargetBlock((Set<Material>) null, 100);
 		if (!(block.getState() instanceof Sign)) {
 			player.sendMessage(I18n._("cmd.edit.signonly"));
+			return true;
+		}
+		
+		if (!API.canBuild(player, block)) {
+			player.sendMessage(cmd.getPermissionMessage());
 			return true;
 		}
 		

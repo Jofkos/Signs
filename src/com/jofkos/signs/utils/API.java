@@ -54,8 +54,8 @@ public class API {
 				
 				iterator.remove();
 				
-				Signs.log("The " + plugin + " integration doesn't work properly, it has been removed from this session.");
-				Signs.log("Please report that error and/or update the plugin (and its depencies)");
+				Signs.log("The " + plugin + " integration doesn't works properly, it has been removed from this session.");
+				Signs.log("Please report that error and/or update the plugin (and its dependencies)");
 			}
 		}
 		return true;

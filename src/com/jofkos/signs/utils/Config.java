@@ -10,7 +10,6 @@ import org.bukkit.inventory.Recipe;
 import com.jofkos.signs.Signs;
 import com.jofkos.signs.utils.i18n.I18n;
 
-@SuppressWarnings({})
 public class Config {
 	
 	private static Signs plugin;
@@ -29,7 +28,7 @@ public class Config {
 	public static boolean NOTIFY_UPDATES = true;
 	public static boolean AUTO_UPDATE = true;
 	
-	public static MaterialType COPY_MAT = new MaterialType(Material.PAPER); 
+	public static MaterialType COPY_MAT = new MaterialType(Material.PAPER);
 	public static MaterialType INK = new MaterialType(Material.INK_SACK);
 	public static boolean COPY_COSTS = false;
 	public static boolean PASTE_COSTS = false;

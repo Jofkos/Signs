@@ -33,7 +33,7 @@ public abstract class NMSUtils {
 
 	protected static Class<?> getClass(String name) {
 		try {
-			name = name.replaceAll("^(obc|nms)(?=\\.)", "$1\\." + NMSVersion);
+			name = name.replaceAll("^(obc|nms)(?=\\.)", "$1." + NMSVersion);
 			name = name.replace("obc", "org.bukkit.craftbukkit");
 			name = name.replace("nms", "net.minecraft.server");
 			return Class.forName(name);

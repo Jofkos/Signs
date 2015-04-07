@@ -4,7 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 
-@SuppressWarnings({"deprecation"})
+@SuppressWarnings("deprecation")
 public class MaterialType {
 		
 	private Material mat;
