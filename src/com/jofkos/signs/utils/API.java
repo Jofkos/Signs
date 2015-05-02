@@ -44,7 +44,7 @@ public class API {
 		
 		while (iterator.hasNext()) {
 			String plugin = iterator.next();
-
+			
 			try {
 				if (!canBuild(plugin, player, block)) {
 					return false;

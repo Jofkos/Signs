@@ -5,7 +5,6 @@ import java.util.Locale;
 import org.apache.commons.lang.LocaleUtils;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.inventory.Recipe;
 
 import com.jofkos.signs.Signs;
 import com.jofkos.signs.utils.i18n.I18n;
@@ -14,8 +13,6 @@ public class Config {
 	
 	private static Signs plugin;
 	private static FileConfiguration config;
-	
-	public static Recipe COPY_CRAFTING = null;
 	
 	public static MaterialType EDIT_MAT = new MaterialType(Material.INK_SACK);
 	
