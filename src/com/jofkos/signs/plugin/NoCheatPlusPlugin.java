@@ -18,12 +18,13 @@ public class NoCheatPlusPlugin extends API.APIPlugin {
 
 	@Override
 	public boolean canBuild(Player player, Block block) {
-		BlockPlaceData blockData = BlockPlaceData.getData(player);
 		
 		if (Utils.isSign(block)) {
+			BlockPlaceData blockData = BlockPlaceData.getData(player);
 			blockData.autoSignPlacedTime = System.currentTimeMillis();
 			blockData.autoSignPlacedHash = BlockPlaceListener.getBlockPlaceHash(block, Material.SIGN);
 		}
+		
 		return true;
 	}
 }
