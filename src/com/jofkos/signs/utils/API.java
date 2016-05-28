@@ -20,12 +20,13 @@ public class API {
 	public static void load() {
 		for (String dependency : Signs.getInstance().getDescription().getSoftDepend()) {
 			try {
+				Plugin plugin = Bukkit.getPluginManager().getPlugin(dependency);
+				if (plugin == null || !plugin.isEnabled()) continue;
+
 				Class<?> apiPlugin = Class.forName("com.jofkos.signs.plugin." + dependency + "Plugin");
 				Class<?> pluginClass = Class.forName((String) apiPlugin.getField("clazz").get(null));
 				
-				Plugin plugin = Bukkit.getPluginManager().getPlugin(dependency);
-				
-				if (pluginClass != null && plugin != null && pluginClass.isInstance(plugin) && plugin.isEnabled()) {
+				if (pluginClass != null && pluginClass.isInstance(plugin)) {
 					plugins.put(dependency.toLowerCase(), (APIPlugin) apiPlugin.newInstance());
 				}
 			} catch (Exception e) {}

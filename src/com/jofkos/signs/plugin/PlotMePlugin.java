@@ -1,32 +1,34 @@
 package com.jofkos.signs.plugin;
 
+import com.jofkos.signs.utils.API;
+import com.worldcretornica.plotme_core.Plot;
+import com.worldcretornica.plotme_core.PlotMeCoreManager;
+import com.worldcretornica.plotme_core.bukkit.api.BukkitBlock;
+import com.worldcretornica.plotme_core.bukkit.api.BukkitPlayer;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-
-import com.jofkos.signs.utils.API;
-import com.worldcretornica.plotme.Plot;
-import com.worldcretornica.plotme.PlotManager;
-import com.worldcretornica.plotme.PlotMe;
 
 public class PlotMePlugin extends API.APIPlugin {
 	
 	static {
-		clazz = "com.worldcretornica.plotme.PlotMe";
+		clazz = "com.worldcretornica.plotme_core.bukkit.PlotMe_CorePlugin";
 	}
 	
 	@Override
 	public boolean canBuild(Player player, Block block) {
-		if (!PlotManager.isPlotWorld(block) || PlotMe.cPerms(player, "plotme.admin.buildanywhere")) {
+		PlotMeCoreManager manager = PlotMeCoreManager.getInstance();
+		BukkitBlock bukkitBlock = new BukkitBlock(block);
+		if (!manager.isPlotWorld(bukkitBlock) || player.hasPermission("plotme.admin.buildanywhere")) {
 			return true;
 		}
 		
-		String id = PlotManager.getPlotId(block.getLocation());
+		String id = manager.getPlotId(bukkitBlock.getLocation());
 		
-		if (id.equalsIgnoreCase("") || id == null) {
+		if (id == null || id.equalsIgnoreCase("")) {
 			return false;
 		}
-		
-		Plot plot = (Plot) PlotManager.getMap(player).plots.get(id);
+
+		Plot plot = manager.getMap(new BukkitPlayer(player)).getPlot(id);
 		return plot != null && plot.isAllowed(player.getUniqueId());
 	}
 }

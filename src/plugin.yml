@@ -1,6 +1,6 @@
 name: Signs
 main: com.jofkos.signs.Signs
-version: 1.9.5
+version: 1.9.6
 author: Jofkos
 description: Simple sign editing.
 softdepend: [LWC, WorldGuard, Towny, QuickShop, Factions, PlotMe, NoCheatPlus, GriefPrevention, Lockette, ChestShop]

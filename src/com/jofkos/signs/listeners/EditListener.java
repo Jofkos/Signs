@@ -35,8 +35,9 @@ public class EditListener implements Listener {
 			sign.setLine(i, "");
 		}
 		sign.update();
-		
-		NMSUtils.sendPacket(e.getPlayer(), NMSUtils.getSignChangePacket(e.getClickedBlock(), lines));
+
+		Object signChangePacket = NMSUtils.getSignChangePacket(e.getClickedBlock(), lines);
+		if (signChangePacket != null) NMSUtils.sendPacket(e.getPlayer(), signChangePacket);
 		NMSUtils.sendEditor(e.getPlayer(), e.getClickedBlock());
 	}
 	
