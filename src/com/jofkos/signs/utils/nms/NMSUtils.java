@@ -18,7 +18,9 @@ public abstract class NMSUtils {
 	
 	private static NMSCore getImpl() {
 		try {
-			int version = NumberConversions.toInt(NMSVersion.replace("_", "").substring(1, 3));
+			String versionString = NMSVersion.replace("_", "");
+
+			int version = NumberConversions.toInt(versionString.substring(1, versionString.indexOf('R')));
 			if (version >= 19)
 				version = 19;
 			if (version == 18)
